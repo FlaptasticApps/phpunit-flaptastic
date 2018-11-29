@@ -4,7 +4,7 @@
 
 ## Installation
 
-SpeedTrap is installable via [Composer](http://getcomposer.org) and should be added as a `require-dev` dependency:
+pytest-flaptastic is installable via [Composer](http://getcomposer.org) and should be added as a `require-dev` dependency:
 
     composer require --dev blockjon/flaptastic
 
@@ -41,4 +41,4 @@ have the Flaptastic plugin actually activate.
 
 ## License
 
-phpunit-speedtrap is available under the MIT License.
+phpunit-flaptastic is available under the MIT License.
