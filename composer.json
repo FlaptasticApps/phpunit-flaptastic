@@ -1,6 +1,6 @@
 {
     "name": "blockjon/flaptastic",
-    "description": "Stop test flapping in your CICD environment such as CircleCI, TravisCI, or Jenkins.",
+    "description": "This PHPUnit extension uploads your test results to https://www.flaptastic.com/ to help you stop test flapping in any CICD environment such as CircleCI, TravisCI, or Jenkins.",
     "keywords": ["PHPUnit", "assertion", "listener"],
     "homepage": "https://github.com/blockjon/phpunit-flaptastic",
     "type": "library",
