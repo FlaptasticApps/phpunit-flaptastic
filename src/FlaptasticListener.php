@@ -136,13 +136,16 @@ class FlaptasticListener implements TestListener
                     ]
                 );
                 if ($r->getStatusCode() == 201) {
-                    // yay it worked.
+                    $numSent = count($this->buffer);
+                    $this->stdErr(2, "${numSent} test results uploaded to Flaptastic.\n");
+                } else {
+                    $this->stdErr(1, "Failed sending test results to Flaptastic. Got HTTP response code {$r->getStatusCode()} with response body {$r->getBody()} .\n");
                 }
             } catch (\Exception $e) {
                 $this->stdErr(0, "\nWarning: Failed pushing messages to flaptastic: " . $e->getMessage());
             }
         }
-
+        
         // Reset the buffer.
         $this->buffer = [];
     }
