@@ -145,7 +145,7 @@ class FlaptasticListener implements TestListener
                 $this->stdErr(0, "\nWarning: Failed pushing messages to flaptastic: " . $e->getMessage());
             }
         }
-        
+
         // Reset the buffer.
         $this->buffer = [];
     }
@@ -221,7 +221,6 @@ class FlaptasticListener implements TestListener
 
     public function endTest(\PHPUnit\Framework\Test $test, float $time): void
     {
-        printf( "Test '%s' ended with state {$this->testType}.\n", $test->getName());
         if ($this->testType == 'passed') {
             $this->addPassedTest($test);
         } elseif (in_array($this->testType, ['failure', 'error'])) {
@@ -238,8 +237,13 @@ class FlaptasticListener implements TestListener
                     1,
                     "\nFlaptastic missing env vars detected. Delivery to Flaptastic will not be attempted.\n"
                 );
-                static::$FLAPTASTIC_INTRODUCED = true;
+            } else {
+                $this->stdErr(
+                    1,
+                    "\nFlaptastic activated for this unit test run.\n"
+                );
             }
+            static::$FLAPTASTIC_INTRODUCED = true;
         }
     }
 
