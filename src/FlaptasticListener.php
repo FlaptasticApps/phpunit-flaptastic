@@ -169,8 +169,11 @@ class FlaptasticListener implements TestListener
     }
 
     private function verbosityAllows($level) {
-        $verbosity = getenv("FLAPTASTIC_VERBOSITY");
-        return !$verbosity || (int) $verbosity >= $level;
+        $envVerbosity = getenv("FLAPTASTIC_VERBOSITY");
+        if (!$envVerbosity) {
+            $envVerbosity = 0;
+        }
+        return (int) $envVerbosity >= $level;
     }
 
     public function addError(\PHPUnit\Framework\Test $test, \Throwable $e, float $time): void
@@ -226,10 +229,14 @@ class FlaptasticListener implements TestListener
     public function startTestSuite(\PHPUnit\Framework\TestSuite $suite): void
     {
         $this->testSuite = $suite;
-        printf("TestSuite '%s' started.\n", $suite->getName());
-        if ($this->missingEnvVarsDetected() && !static::$FLAPTASTIC_INTRODUCED) {
-            $this->stdErr(2, "\nFlaptastic missing env vars detected. Delivery to Flaptastic will not be attempted.\n");
-            static::$FLAPTASTIC_INTRODUCED = true;
+        if (!static::$FLAPTASTIC_INTRODUCED) {
+            if ($this->missingEnvVarsDetected()) {
+                $this->stdErr(
+                    1,
+                    "\nFlaptastic missing env vars detected. Delivery to Flaptastic will not be attempted.\n"
+                );
+                static::$FLAPTASTIC_INTRODUCED = true;
+            }
         }
     }
 
