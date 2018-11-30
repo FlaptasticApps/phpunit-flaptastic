@@ -44,10 +44,6 @@ class FlaptasticListener implements TestListener
         ];
     }
 
-    private function toRelativePath($absolutePath) {
-        return preg_replace("~^{$_SERVER['PWD']}/~", "", $absolutePath);
-    }
-
     private function exceptionSite($file, $targetLineNumber) {
         $result = [];
         $handle = fopen($file, "r");
@@ -74,7 +70,7 @@ class FlaptasticListener implements TestListener
         $result = $this->getTestFailureFileAndLine($e);
         $this->buffer[] = (object) array(
             'name' => $test->getName(),
-            'file' => $this->toRelativePath($result->file),
+            'file' => FlaptasticHelpers::toRelativePath($result->file),
             'line' => (int) $result->line,
             'exception' => $e->getMessage(),
             'status' => $status,
@@ -85,8 +81,8 @@ class FlaptasticListener implements TestListener
 
     private function addPassedTest($test) {
         $status = 'passed';
-        $file = $this->getTestFileName($test);
-        $lineNumber = $this->getTestLineNumber($test);
+        $file = FlaptasticHelpers::getTestFileName($test);
+        $lineNumber = FlaptasticHelpers::getTestLineNumber($test);
         $this->buffer[] = (object) array(
             'name' => $test->getName(),
             'file' => $file,
@@ -98,7 +94,7 @@ class FlaptasticListener implements TestListener
     private function getFileStack($e) {
         $fileStack = [];
         foreach($e->getTrace() as $item) {
-            $fileStack[] = $this->toRelativePath($item["file"]);
+            $fileStack[] = FlaptasticHelpers::toRelativePath($item["file"]);
         }
         return $fileStack;
     }
@@ -137,12 +133,12 @@ class FlaptasticListener implements TestListener
                 );
                 if ($r->getStatusCode() == 201) {
                     $numSent = count($this->buffer);
-                    $this->stdErr(2, "${numSent} test results uploaded to Flaptastic.\n");
+                    FlaptasticHelpers::stdErr(2, "${numSent} test results uploaded to Flaptastic.\n");
                 } else {
-                    $this->stdErr(1, "Failed sending test results to Flaptastic. Got HTTP response code {$r->getStatusCode()} with response body {$r->getBody()} .\n");
+                    FlaptasticHelpers::stdErr(1, "Failed sending test results to Flaptastic. Got HTTP response code {$r->getStatusCode()} with response body {$r->getBody()} .\n");
                 }
             } catch (\Exception $e) {
-                $this->stdErr(0, "\nWarning: Failed pushing messages to flaptastic: " . $e->getMessage());
+                FlaptasticHelpers::stdErr(0, "\nWarning: Failed pushing messages to flaptastic: " . $e->getMessage());
             }
         }
 
@@ -163,20 +159,6 @@ class FlaptasticListener implements TestListener
             }
         }
         return false;
-    }
-
-    private function stdErr($level, $message) {
-        if ($this->verbosityAllows($level)) {
-            fwrite(STDERR, $message . "\n");
-        }
-    }
-
-    private function verbosityAllows($level) {
-        $envVerbosity = getenv("FLAPTASTIC_VERBOSITY");
-        if (!$envVerbosity) {
-            $envVerbosity = 0;
-        }
-        return (int) $envVerbosity >= $level;
     }
 
     public function addError(\PHPUnit\Framework\Test $test, \Throwable $e, float $time): void
@@ -233,28 +215,18 @@ class FlaptasticListener implements TestListener
         $this->testSuite = $suite;
         if (!static::$FLAPTASTIC_INTRODUCED) {
             if ($this->missingEnvVarsDetected()) {
-                $this->stdErr(
+                FlaptasticHelpers::stdErr(
                     1,
                     "\nFlaptastic missing env vars detected. Delivery to Flaptastic will not be attempted.\n"
                 );
             } else {
-                $this->stdErr(
+                FlaptasticHelpers::stdErr(
                     1,
                     "\nFlaptastic activated for this unit test run.\n"
                 );
             }
             static::$FLAPTASTIC_INTRODUCED = true;
         }
-    }
-
-    public function getTestFileName($test) {
-        $reflection = new \ReflectionClass(get_class($test));
-        return $this->toRelativePath($reflection->getFileName());
-    }
-
-    public function getTestLineNumber($test) {
-        $reflection = new \ReflectionClass(get_class($test));
-        return $reflection->getMethod($test->getName())->getStartLine();
     }
 
     public function endTestSuite(\PHPUnit\Framework\TestSuite $suite): void
