@@ -9,7 +9,7 @@ pytest-flaptastic is installable via [Composer](http://getcomposer.org) and shou
     composer require --dev blockjon/flaptastic
 
 
-## Usage
+## Integrating with your codebase
 
 Enable Flaptastic's autoloader in your PHPUnit `phpunit.xml` file like this:
 
