@@ -1,6 +1,6 @@
 # phpunit-flaptastic
 
-[Flaptastic](https://www.flaptastic.com/) helps stop test flapping in your CICD environment such as CircleCI, TravisCI, or Jenkins.
+[Flaptastic](https://www.flaptastic.com/) helps stop test flapping in your CICD environment such as CircleCI, TravisCI, or Jenkins. This project is registered on packagist https://packagist.org/packages/blockjon/flaptastic allowing you to easily install it with composer.
 
 ## Installation
 
