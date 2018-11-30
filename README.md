@@ -64,9 +64,9 @@ In CircleCI 2.0, we must map some of Circle's variables to Flaptastic varibles a
             source $BASH_ENV
             make test
 ```
-Please be sure to pass the organization ID as you real ID value as a string with double quotes. At the time of this writing, CircleCI will botch our 64-bit integer ids without the double quotes.
+Please be sure to pass your selected organization ID as the actual ID value from your Flaptastic account as a string with double quotes. At the time of this writing, CircleCI will botch our 64-bit integer ids without the double quotes.
 
-Finally, go to your CircleCI project page and copy & paste your Flaptastic API token into an enviornment variable called "FLAPTASTIC_API_TOKEN" with your token value as the value and click save.
+Finally, find your Flaptastic API token and then go to your CircleCI project page. Navigate to the project environment variables screen and create an enviornment variable called "FLAPTASTIC_API_TOKEN" and then paste your token as the value.
 
 ## License
 
