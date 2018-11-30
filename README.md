@@ -1,6 +1,6 @@
 # phpunit-flaptastic
 
-[Flaptastic](https://www.flaptastic.com/) helps stop test flapping in your CICD environment such as CircleCI, TravisCI, or Jenkins.
+[Flaptastic](https://www.flaptastic.com/) helps stop test flapping in your CICD environment such as CircleCI, TravisCI, or Jenkins. This project is registered on packagist https://packagist.org/packages/blockjon/flaptastic allowing you to easily install it with composer.
 
 ## Installation
 
@@ -11,7 +11,7 @@ pytest-flaptastic is installable via [Composer](http://getcomposer.org) and shou
 
 ## Usage
 
-Enable with all defaults by adding the following code to your project's `phpunit.xml` file:
+Enable Flaptastic's autoloader in your PHPUnit `phpunit.xml` file like this:
 
 ```xml
 <phpunit bootstrap="vendor/autoload.php">
@@ -22,21 +22,26 @@ Enable with all defaults by adding the following code to your project's `phpunit
 </phpunit>
 ```
 
-That concludes the PHP config. Now you must pass the correct environment variables in your CI environment to 
-have the Flaptastic plugin actually activate.
+Next, in order to make instant test disablement work, you should add the following trait to all of your TestCase classes, or even simpler, just once to your base TestCase if your tests all extend from a common base TestCase.
 
-## Configuration
+*Note that PHP Trait 'use' statements must go **inside** your TestCase class.*
+```
+use BlockJon\PHPUnit\Listener\FlaptasticDisableableTest;
+```
+
+Finally, configure your CI environment with the correct environment variables as seen below.
+
+## Environment Variables Configuration for CI
 
 | Required | Environment Variable Name    | Description |
 | -------- | ---------------------------- | -------------------------- |
 | Yes      | FLAPTASTIC_ORGANIZATION_ID   | Organization id |
 | Yes      | FLAPTASTIC_API_TOKEN         | API token |
-| Yes      | FLAPTASTIC_SERVICE           | Name of service (aka microservice) under test |
-| No       | FLAPTASTIC_BRANCH            | Branch name being tested. In git, you might pass "master" or names like "myFeature" |
-| No       | FLAPTASTIC_COMMIT_ID         | Version id of code tested. In git, this would be the commit sha |
-| No       | FLAPTASTIC_LINK              | Link to CI (Jenkins/Circle/Travis etc) website page where you can find the full details of the test run, if applicable |
+| Yes      | FLAPTASTIC_SERVICE           | Name of service (aka microservice name) under test |
+| No       | FLAPTASTIC_BRANCH            | Branch name being tested. In git, you might pass "master" or names like "myFeature". (CI systems like Circle have special variables that expose this value.) |
+| No       | FLAPTASTIC_COMMIT_ID         | Version id of code tested. In git, this would be the commit sha. (CI systems like Circle have special variables that expose this value.) |
+| No       | FLAPTASTIC_LINK              | Link to CI (Jenkins/Circle/Travis etc) website page where you can find the full details of the test run, if applicable. (CI systems like Circle have special variables that expose this value.) |
 | No       | FLAPTASTIC_VERBOSITY         | Stdout verbosity. 0=none (default) 1=minimal 2=everything |
-
 
 
 ## License
