@@ -44,6 +44,30 @@ Finally, configure your CI environment with the correct environment variables as
 | No       | FLAPTASTIC_VERBOSITY         | Stdout verbosity. 0=none (default) 1=minimal 2=everything |
 
 
+## CircleCI 2.0 Configuration
+A simple project might have a CircleCI 2.0 YML that ultimately does a 'make test' like this:
+```
+      - run: make test
+```
+In CircleCI 2.0, we must map some of Circle's variables to Flaptastic varibles and include the Flaptastic organization id like this:
+```
+      - run:
+          name: Run PHPUnit With Flaptastic
+          environment:
+            FLAPTASTIC_ORGANIZATION_ID: "<your org id goes here>"
+            FLAPTASTIC_VERBOSITY: 1
+          command: |
+            echo 'export FLAPTASTIC_BRANCH=$CIRCLE_BRANCH' >> $BASH_ENV
+            echo 'export FLAPTASTIC_LINK=$CIRCLE_BUILD_URL' >> $BASH_ENV
+            echo 'export FLAPTASTIC_SERVICE=$CIRCLE_PROJECT_REPONAME' >> $BASH_ENV
+            echo 'export FLAPTASTIC_COMMIT_ID=$CIRCLE_SHA1' >> $BASH_ENV
+            source $BASH_ENV
+            make test
+```
+Please be sure to pass the organization ID as you real ID value as a string with double quotes. At the time of this writing, CircleCI will botch our 64-bit integer ids without the double quotes.
+
+Finally, go to your CircleCI project page and copy & paste your Flaptastic API token into an enviornment variable called "FLAPTASTIC_API_TOKEN" with your token value as the value and click save.
+
 ## License
 
 phpunit-flaptastic is available under the MIT License.
