@@ -22,7 +22,7 @@ Enable with all defaults by adding the following code to your project's `phpunit
 </phpunit>
 ```
 
-That concludes the PHP config. Now you must pass the correct environment variables in your CI environment to 
+That concludes the PHP config. Now you must set the correct environment variables in your CI environment to 
 have the Flaptastic plugin actually activate.
 
 ## Configuration
