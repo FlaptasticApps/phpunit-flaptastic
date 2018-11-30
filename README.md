@@ -22,7 +22,7 @@ Enable Flaptastic's autoloader in your PHPUnit `phpunit.xml` file like this:
 </phpunit>
 ```
 
-Next, in order to make instant test disablement work, you should add the following trait to all of your TestCase classes, or even simpler, just once to your base TestCase if your tests all extend from a common base TestCase.
+To allow Flaptastic the ability to disable (aka skip) tests instantly in your CI system, you should add the following trait to all of your TestCase classes, or even simpler, just once to your base TestCase if your tests all extend from a common base TestCase.
 
 *Note that PHP Trait 'use' statements must go **inside** your TestCase class.*
 ```
