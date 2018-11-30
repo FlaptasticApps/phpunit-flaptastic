@@ -29,7 +29,7 @@ Next, in order to make instant test disablement work, you should add the followi
 use BlockJon\PHPUnit\Listener\FlaptasticDisableableTest;
 ```
 
-Finally, in order to have this plugin work, go into your CI system and configure the correct environment variables as seen below.
+Finally, configure your CI environment with the correct environment variables as seen below.
 
 ## Environment Variables Configuration for CI
 
