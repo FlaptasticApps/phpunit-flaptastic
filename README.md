@@ -68,6 +68,9 @@ Please be sure to pass your selected organization ID as the actual ID value from
 
 Finally, find your Flaptastic API token and then go to your CircleCI project page. Navigate to the project environment variables screen and create an enviornment variable called "FLAPTASTIC_API_TOKEN" and then paste your token as the value.
 
+![alt text](https://s3.amazonaws.com/www.flaptastic.com/images/circle.png "Screenshot of how to register the secret token value in CircleCI")
+
+
 ## License
 
 phpunit-flaptastic is available under the MIT License.
