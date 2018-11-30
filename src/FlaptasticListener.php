@@ -133,9 +133,9 @@ class FlaptasticListener implements TestListener
                 );
                 if ($r->getStatusCode() == 201) {
                     $numSent = count($this->buffer);
-                    FlaptasticHelpers::stdErr(2, "${numSent} test results uploaded to Flaptastic.\n");
+                    FlaptasticHelpers::stdErr(2, "\n${numSent} test results uploaded to Flaptastic.\n");
                 } else {
-                    FlaptasticHelpers::stdErr(1, "Failed sending test results to Flaptastic. Got HTTP response code {$r->getStatusCode()} with response body {$r->getBody()} .\n");
+                    FlaptasticHelpers::stdErr(1, "\nFailed sending test results to Flaptastic. Got HTTP response code {$r->getStatusCode()} with response body {$r->getBody()} .\n");
                 }
             } catch (\Exception $e) {
                 FlaptasticHelpers::stdErr(0, "\nWarning: Failed pushing messages to flaptastic: " . $e->getMessage());
