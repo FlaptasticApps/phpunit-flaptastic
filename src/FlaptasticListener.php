@@ -37,7 +37,14 @@ class FlaptasticListener implements TestListener
     }
 
     private function getTestFailureFileAndLine($e) {
-        $result = explode(":", trim(\PHPUnit\Util\Filter::getFilteredStacktrace($e)));
+        if ($e instanceof \PHPUnit\Framework\ExceptionWrapper) {
+            $result = [
+                $e->getFile(),
+                $e->getLine()
+            ];
+        } else {
+            $result = explode(":", trim(\PHPUnit\Util\Filter::getFilteredStacktrace($e)));
+        }
         return (object) [
             "file" => $result[0],
             "line" => $result[1]
