@@ -31,6 +31,6 @@ class FlaptasticHelpers
 
     public static function getTestLineNumber($test) {
         $reflection = new \ReflectionClass(get_class($test));
-        return $reflection->getMethod($test->getName())->getStartLine();
+        return $reflection->getMethod($test->getName(false))->getStartLine();
     }
 }
