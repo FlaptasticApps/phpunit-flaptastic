@@ -36,18 +36,10 @@ class FlaptasticListener implements TestListener
         $this->verbosity = getenv('FLAPTASTIC_VERBOSITY');
     }
 
-    private function getTestFailureFileAndLine($e) {
-        if ($e instanceof \PHPUnit\Framework\ExceptionWrapper) {
-            $result = [
-                $e->getFile(),
-                $e->getLine()
-            ];
-        } else {
-            $result = explode(":", trim(\PHPUnit\Util\Filter::getFilteredStacktrace($e)));
-        }
+    public function getTestFailureFileAndLine($e) {
         return (object) [
-            "file" => $result[0],
-            "line" => $result[1]
+            "file" => $e->getFile(),
+            "line" => $e->getLine()
         ];
     }
 
