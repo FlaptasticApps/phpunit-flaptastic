@@ -70,6 +70,13 @@ Finally, find your Flaptastic API token and then go to your CircleCI project pag
 
 ![alt text](https://s3.amazonaws.com/www.flaptastic.com/images/circle.png "Screenshot of how to register the secret token value in CircleCI")
 
+## Testing
+
+Run tests using Docker.
+
+1. Install Docker on your machine
+1. Build the image: `docker build -t phpunit-flaptastic .`
+1. Run tests: `docker run -it --rm phpunit-flaptastic`
 
 ## License
 
