@@ -160,47 +160,47 @@ class FlaptasticListener implements TestListener
         return false;
     }
 
-    public function addError(\PHPUnit\Framework\Test $test, \Throwable $e, float $time): void
+    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         $this->testType = 'error';
         $this->testException = $e;
     }
 
-    public function addWarning(\PHPUnit\Framework\Test $test, \PHPUnit\Framework\Warning $e, float $time): void
+    public function addWarning(PHPUnit_Framework_Test $test, \PHPUnit\Framework\Warning $e, $time)
     {
         $this->testType = 'warning';
     }
 
-    public function addFailure(\PHPUnit\Framework\Test $test, \PHPUnit\Framework\AssertionFailedError $e, float $time): void
+    public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
     {
         $this->testType = 'failure';
         $this->testException = $e;
     }
 
-    public function addIncompleteTest(\PHPUnit\Framework\Test $test, \Throwable $e, float $time): void
+    public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         // We are not interested in incomplete tests and they are ultimately ignored.
         $this->testType = 'incomplete';
     }
 
-    public function addRiskyTest(\PHPUnit\Framework\Test $test, \Throwable $e, float $time): void
+    public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         // We dont care if php happens to deem a test is risky.
     }
 
-    public function addSkippedTest(\PHPUnit\Framework\Test $test, \Throwable $e, float $time): void
+    public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         $this->testType = 'skipped';
     }
 
-    public function startTest(\PHPUnit\Framework\Test $test): void
+    public function startTest(PHPUnit_Framework_Test $test)
     {
         // Assume tests all pass.
         $this->testType = 'passed';
         $this->testException = null;
     }
 
-    public function endTest(\PHPUnit\Framework\Test $test, float $time): void
+    public function endTest(PHPUnit_Framework_Test $test, $time)
     {
         if ($this->testType == 'passed') {
             $this->addPassedTest($test);
@@ -209,7 +209,7 @@ class FlaptasticListener implements TestListener
         }
     }
 
-    public function startTestSuite(\PHPUnit\Framework\TestSuite $suite): void
+    public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         $this->testSuite = $suite;
         if (!static::$FLAPTASTIC_INTRODUCED) {
@@ -228,7 +228,7 @@ class FlaptasticListener implements TestListener
         }
     }
 
-    public function endTestSuite(\PHPUnit\Framework\TestSuite $suite): void
+    public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         if (count($this->buffer)) {
             $this->occasionallyDeliver();
