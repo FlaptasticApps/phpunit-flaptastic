@@ -2,13 +2,10 @@
 
 namespace BlockJon\PHPUnit\Listener;
 
-use PHPUnit\Framework\TestListener;
-
-
 /**
  * Integrates with flaptastic.com to expose flappy test information.
  */
-class FlaptasticListener implements TestListener
+class FlaptasticListener implements \PHPUnit_Framework_TestListener
 {
     public static $FLAPTASTIC_INTRODUCED = false;
 
@@ -37,10 +34,18 @@ class FlaptasticListener implements TestListener
     }
 
     public function getTestFailureFileAndLine($e) {
-        return (object) [
-            "file" => $e->getFile(),
-            "line" => $e->getLine()
-        ];
+        if (is_subclass_of($e, '\PHPUnit_Framework_Exception')) {
+            $result = explode(":", trim(\PHPUnit_Util_Filter::getFilteredStacktrace($e)));
+            return (object) [
+                "file" => $result[0],
+                "line" => $result[1]
+            ];
+        } else {
+            return (object) [
+                "file" => $e->getFile(),
+                "line" => $e->getLine()
+            ];
+        }
     }
 
     private function exceptionSite($file, $targetLineNumber) {
@@ -160,47 +165,47 @@ class FlaptasticListener implements TestListener
         return false;
     }
 
-    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addError(\PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         $this->testType = 'error';
         $this->testException = $e;
     }
 
-    public function addWarning(PHPUnit_Framework_Test $test, \PHPUnit\Framework\Warning $e, $time)
+    public function addWarning(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_Warning $e, $time)
     {
         $this->testType = 'warning';
     }
 
-    public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+    public function addFailure(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_AssertionFailedError $e, $time)
     {
         $this->testType = 'failure';
         $this->testException = $e;
     }
 
-    public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addIncompleteTest(\PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         // We are not interested in incomplete tests and they are ultimately ignored.
         $this->testType = 'incomplete';
     }
 
-    public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addRiskyTest(\PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         // We dont care if php happens to deem a test is risky.
     }
 
-    public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addSkippedTest(\PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         $this->testType = 'skipped';
     }
 
-    public function startTest(PHPUnit_Framework_Test $test)
+    public function startTest(\PHPUnit_Framework_Test $test)
     {
         // Assume tests all pass.
         $this->testType = 'passed';
         $this->testException = null;
     }
 
-    public function endTest(PHPUnit_Framework_Test $test, $time)
+    public function endTest(\PHPUnit_Framework_Test $test, $time)
     {
         if ($this->testType == 'passed') {
             $this->addPassedTest($test);
@@ -209,7 +214,7 @@ class FlaptasticListener implements TestListener
         }
     }
 
-    public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+    public function startTestSuite(\PHPUnit_Framework_TestSuite $suite)
     {
         $this->testSuite = $suite;
         if (!static::$FLAPTASTIC_INTRODUCED) {
@@ -228,7 +233,7 @@ class FlaptasticListener implements TestListener
         }
     }
 
-    public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+    public function endTestSuite(\PHPUnit_Framework_TestSuite $suite)
     {
         if (count($this->buffer)) {
             $this->occasionallyDeliver();
