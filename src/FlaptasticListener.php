@@ -168,7 +168,7 @@ class FlaptasticListener implements \PHPUnit_Framework_TestListener
         $this->testType = 'warning';
     }
 
-    public function addFailure(\PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+    public function addFailure(\PHPUnit_Framework_Test $test, PHPUnit_Framework_ExpectationFailedException $e, $time)
     {
         $this->testType = 'failure';
         $this->testException = $e;
