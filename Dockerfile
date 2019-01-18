@@ -1,4 +1,4 @@
-FROM php:7.1-cli
+FROM php:5.6-cli
 
 # Work out of this directory
 WORKDIR /usr/flaptastic
