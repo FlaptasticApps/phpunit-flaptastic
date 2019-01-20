@@ -36,16 +36,17 @@ class FlaptasticListener implements \PHPUnit_Framework_TestListener
     public function getTestFailureFileAndLine($e) {
         if (is_subclass_of($e, '\PHPUnit_Framework_Exception')) {
             $result = explode(":", trim(\PHPUnit_Util_Filter::getFilteredStacktrace($e)));
-            return (object) [
-                "file" => $result[0],
-                "line" => $result[1]
-            ];
-        } else {
-            return (object) [
-                "file" => $e->getFile(),
-                "line" => $e->getLine()
-            ];
+            if (count($result) == 2) {
+                return (object) [
+                    "file" => $result[0],
+                    "line" => $result[1]
+                ];
+            }
         }
+        return (object) [
+            "file" => $e->getFile(),
+            "line" => $e->getLine()
+        ];
     }
 
     private function exceptionSite($file, $targetLineNumber) {
