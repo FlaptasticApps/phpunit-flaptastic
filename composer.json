@@ -1,8 +1,8 @@
 {
-    "name": "blockjon/flaptastic",
-    "description": "This PHPUnit extension uploads your test results to https://www.flaptastic.com/ to help you stop test flapping when run in any proper CICD system such as CircleCI, TravisCI, or Jenkins.",
+    "name": "FlaptasticApps/flaptastic",
+    "description": "Flaptastic py.test plugin.",
     "keywords": ["PHPUnit", "assertion", "listener"],
-    "homepage": "https://github.com/blockjon/phpunit-flaptastic",
+    "homepage": "https://github.com/FlaptasticApps/phpunit-flaptastic",
     "type": "library",
     "license": "WTFPL",
     "authors": [
@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "BlockJon\\PHPUnit\\Listener\\": "src/"
+            "FlaptasticApps\\PHPUnit\\Listener\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BlockJon\\PHPUnit\\Listener\\Tests\\": "tests/"
+            "FlaptasticApps\\PHPUnit\\Listener\\Tests\\": "tests/"
         }
     }
 }

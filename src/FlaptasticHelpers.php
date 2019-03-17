@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockJon\PHPUnit\Listener;
+namespace FlaptasticApps\PHPUnit\Listener;
 
 
 class FlaptasticHelpers

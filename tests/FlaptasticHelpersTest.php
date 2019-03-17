@@ -1,7 +1,7 @@
 <?php
 use \PHPUnit\Framework\TestCase;
 
-use BlockJon\PHPUnit\Listener\FlaptasticHelpers;
+use FlaptasticApps\PHPUnit\Listener\FlaptasticHelpers;
 
 class FlaptasticHelpersTest extends TestCase
 {

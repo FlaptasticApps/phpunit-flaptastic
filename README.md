@@ -1,12 +1,12 @@
 # phpunit-flaptastic
 
-[Flaptastic](https://www.flaptastic.com/) helps stop test flapping in your CICD environment such as CircleCI, TravisCI, or Jenkins. This project is registered on packagist https://packagist.org/packages/blockjon/flaptastic allowing you to easily install it with composer.
+[Flaptastic](https://www.flaptastic.com/) helps stop test flapping in your CICD environment such as CircleCI, TravisCI, or Jenkins. This project is registered on packagist https://packagist.org/packages/FlaptasticApps/flaptastic allowing you to easily install it with composer.
 
 ## Installation
 
 pytest-flaptastic is installable via [Composer](http://getcomposer.org) and should be added as a `require-dev` dependency:
 
-    composer require --dev blockjon/flaptastic
+    composer require --dev FlaptasticApps/flaptastic
 
 
 ## Integrating with your codebase
@@ -17,7 +17,7 @@ Enable Flaptastic's autoloader in your PHPUnit `phpunit.xml` file like this:
 <phpunit bootstrap="vendor/autoload.php">
 ...
     <listeners>
-        <listener class="BlockJon\PHPUnit\Listener\FlaptasticListener" />
+        <listener class="FlaptasticApps\PHPUnit\Listener\FlaptasticListener" />
     </listeners>
 </phpunit>
 ```
@@ -26,7 +26,7 @@ To allow Flaptastic the ability to disable (aka skip) tests instantly in your CI
 
 *Note that PHP Trait 'use' statements must go **inside** your TestCase class.*
 ```
-use BlockJon\PHPUnit\Listener\FlaptasticDisableableTest;
+use FlaptasticApps\PHPUnit\Listener\FlaptasticDisableableTest;
 ```
 
 Finally, configure your CI environment with the correct environment variables as seen below.

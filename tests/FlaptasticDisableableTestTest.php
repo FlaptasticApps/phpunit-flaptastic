@@ -1,7 +1,7 @@
 <?php
 use \PHPUnit\Framework\TestCase;
 
-use BlockJon\PHPUnit\Listener\FlaptasticDisableableTest;
+use FlaptasticApps\PHPUnit\Listener\FlaptasticDisableableTest;
 
 class FlaptasticDisableableTestTest extends TestCase
 {
