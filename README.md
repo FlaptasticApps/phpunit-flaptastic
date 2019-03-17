@@ -1,12 +1,12 @@
 # phpunit-flaptastic
 
-[Flaptastic](https://www.flaptastic.com/) helps stop test flapping in your CICD environment such as CircleCI, TravisCI, or Jenkins. This project is registered on packagist https://packagist.org/packages/FlaptasticApps/flaptastic allowing you to easily install it with composer.
+[Flaptastic](https://www.flaptastic.com/) helps stop test flapping in your CICD environment such as CircleCI, TravisCI, or Jenkins. This project is registered on packagist https://packagist.org/packages/flaptasticapps/flaptastic allowing you to easily install it with composer.
 
 ## Installation
 
 pytest-flaptastic is installable via [Composer](http://getcomposer.org) and should be added as a `require-dev` dependency:
 
-    composer require --dev FlaptasticApps/flaptastic
+    composer require --dev flaptasticapps/flaptastic
 
 
 ## Integrating with your codebase

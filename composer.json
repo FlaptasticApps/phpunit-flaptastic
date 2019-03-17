@@ -1,5 +1,5 @@
 {
-    "name": "FlaptasticApps/flaptastic",
+    "name": "flaptasticapps/flaptastic",
     "description": "Flaptastic py.test plugin.",
     "keywords": ["PHPUnit", "assertion", "listener"],
     "homepage": "https://github.com/FlaptasticApps/phpunit-flaptastic",
